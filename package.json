@@ -1,5 +1,5 @@
 {
-  "name": "xlsxport",
+  "name": "xlsx-export",
   "version": "0.0.1",
   "description": "A simple XLSX exporter for Node.js and browsers",
   "main": "lib/index.js",
@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/remerge/xlsxport.git"
+    "url": "git+https://github.com/remerge/xlsx-export.git"
   },
   "author": "",
   "license": "ISC",
