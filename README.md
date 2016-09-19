@@ -5,7 +5,7 @@ A simple XLSX exporter for Node.js and browsers, with the simple goal of being a
 ## Usage
 
 ```
-import * as xlsx from 'xlsx-export';
+import * as xlsx from 'xlsx-exporter';
 
 let data = [[1, 'a'], [2, 'b']]
 let worksheet = new xlsx.Worksheet(data);
