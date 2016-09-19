@@ -49,7 +49,7 @@ export function makeSheet(worksheet) {
 }
 
 const _styles = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\r
-<styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:vt="http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes"><fonts count="1"><font><sz val="12"/><color theme="1"/><name val="Calibri"/><family val="2"/><scheme val="minor"/></font></fonts><fills count="2"><fill><patternFill patternType="none"/></fill><fill><patternFill patternType="gray125"/></fill></fills><borders count="1"><border><left/><right/><top/><bottom/><diagonal/></border></borders><cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs><cellXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0" applyNumberFormat="1"/></cellXfs><cellStyles count="1"><cellStyle name="Normal" xfId="0" builtinId="0"/></cellStyles><dxfs count="0"/><tableStyles count="0" defaultTableStyle="TableStyleMedium9" defaultPivotStyle="PivotStyleMedium4"/></styleSheet>`;
+<styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:vt="http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes"><fonts count="1"><font><sz val="12"/><color theme="1"/><name val="Calibri"/><family val="2"/><scheme val="minor"/></font></fonts><fills count="2"><fill><patternFill patternType="none"/></fill><fill><patternFill patternType="gray125"/></fill></fills><borders count="1"><border><left/><right/><top/><bottom/><diagonal/></border></borders><cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs><cellXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0" applyNumberFormat="1"/><xf applyNumberFormat="1" borderId="0" fillId="0" fontId="0" numFmtId="22" xfId="0"/></cellXfs><cellStyles count="1"><cellStyle name="Normal" xfId="0" builtinId="0"/></cellStyles><dxfs count="0"/><tableStyles count="0" defaultTableStyle="TableStyleMedium9" defaultPivotStyle="PivotStyleMedium4"/></styleSheet>`;
 
 export function makeStyles() {
   return _styles;
@@ -68,14 +68,32 @@ export function makeSheet(worksheet) {
     if (!maxRi || ri > maxRi) maxRi = ri;
 
     d += `<row r="${ri}">`;
-    row.forEach(function(val, ci) {
+    row.forEach(function(value, ci) {
       ci++; // lazy
       if (!minCi || ci < minCi) minCi = ci;
       if (!maxCi || ci > maxCi) maxCi = ci;
 
-      d += `<c r="${String.fromCharCode(64 + ci)}${ri}" t="str">`;
-      d += `<v>${val}</v>`;
-      d += `</c>`;
+      // ugly
+      let t, s, v;
+      if (typeof value === 'number') {
+        t = 'n';
+        v = value;
+      } else if (value.constructor === Date) {
+        s = 1; // yeah, hack
+        v = (value.valueOf() - new Date(Date.UTC(1899, 11, 30))) / (24 * 60 * 60 * 1000);
+      } else {
+        t = 'str';
+        v = value.toString();
+      }
+
+      d += `<c r="${String.fromCharCode(64 + ci)}${ri}"`;
+      if (t) {
+        d += ` t="${t}"`;
+      }
+      if (s) {
+        d += ` s="${s}"`;
+      }
+      d += `><v>${v}</v></c>`;
     });
     d += `</row>`;
   });
