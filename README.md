@@ -1,4 +1,4 @@
-# xlsx-export
+# xlsx-exporter
 
 A simple XLSX exporter for Node.js and browsers, with the simple goal of being able to export a 2D array directly to an XLSX file.
 
