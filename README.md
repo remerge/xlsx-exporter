@@ -15,10 +15,3 @@ workbook.save(function(array) {
   // do something with this Uint8Array
 })
 ```
-
-## Checklist
-
-[] Export 2D array to XLSX file
-[] Ensure compatibility with Node.js
-[] Ensure compatibility with Browserify/webpack
-[] Published source should be ES5
