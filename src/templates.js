@@ -75,7 +75,10 @@ export function makeSheet(worksheet) {
 
       // ugly
       let t, s, v;
-      if (typeof value === 'number') {
+      if (value === null || value === undefined) {
+        t = 'str';
+        v = '';
+      } else if (typeof value === 'number') {
         t = 'n';
         v = value;
       } else if (value.constructor === Date) {
