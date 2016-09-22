@@ -104,7 +104,9 @@ export function makeSheet(worksheet) {
       }
 
       // make sure strings are escaped
-      v = escape(v);
+      if (t === 'str') {
+        v = escape(v);
+      }
 
       d += `<c r="${String.fromCharCode(64 + ci)}${ri}"`;
       if (t) {
