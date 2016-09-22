@@ -55,6 +55,20 @@ export function makeStyles() {
   return _styles;
 }
 
+const ESCAPE_MAP = {
+  '&': '&amp;',
+  '<': '&lt;',
+  '>': '&gt;',
+  '"': '&quot;',
+  '\'': '&#39;'
+};
+
+function escape(string) {
+  return string.replace(/[&<>]/g, function(char) {
+    return ESCAPE_MAP[char];
+  });
+}
+
 // TODO: dimension
 export function makeSheet(worksheet) {
   let s = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships">';
@@ -88,6 +102,9 @@ export function makeSheet(worksheet) {
         t = 'str';
         v = value.toString();
       }
+
+      // make sure strings are escaped
+      v = escape(v);
 
       d += `<c r="${String.fromCharCode(64 + ci)}${ri}"`;
       if (t) {
