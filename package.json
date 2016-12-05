@@ -3,28 +3,32 @@
   "version": "0.0.6",
   "description": "A simple XLSX exporter for Node.js and browsers",
   "main": "lib/index.js",
-  "directories": {
-    "test": "test"
-  },
-  "scripts": {
-    "compile": "babel -d lib/ src/",
-    "prepublish": "npm run compile",
-    "test": "mocha --compilers js:babel-core/register"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/remerge/xlsx-exporter.git"
-  },
-  "author": "",
+  "repository": "git@github.com:remerge/xlsx-exporter.git",
+  "author": "Remerge GmbH <tech@remerge.io>",
   "license": "ISC",
-  "devDependencies": {
-    "babel-cli": "^6.14.0",
-    "babel-core": "^6.14.0",
-    "babel-preset-es2015": "^6.14.0",
-    "chai": "^3.5.0",
-    "mocha": "^3.0.2"
-  },
   "dependencies": {
     "jszip": "^3.1.2"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.14.0",
+    "babel-jest": "^17.0.2",
+    "babel-preset-es2015": "^6.14.0",
+    "eslint": "^3.11.1",
+    "eslint-config-standard": "^6.2.1",
+    "eslint-plugin-promise": "^3.4.0",
+    "eslint-plugin-standard": "^2.0.1",
+    "jest": "^17.0.3"
+  },
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "build": "babel src --out-dir lib",
+    "lint": "eslint src test",
+    "prepublish": "npm run clean && npm run build",
+    "test": "jest"
+  },
+  "jest": {
+    "testRegex": "(/test/.*-test.js)$"
   }
 }
