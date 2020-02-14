@@ -1,6 +1,6 @@
 {
   "name": "xlsx-exporter",
-  "version": "0.0.6",
+  "version": "0.1.0",
   "description": "A simple XLSX exporter for Node.js and browsers",
   "main": "lib/index.js",
   "repository": "git@github.com:remerge/xlsx-exporter.git",
