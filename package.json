@@ -22,7 +22,9 @@
   ],
   "scripts": {
     "build": "babel src --out-dir lib",
+    "clean": "rm -rf lib/",
     "lint": "eslint .",
+    "prepublishOnly": "npm run clean && npm run build",
     "test": "jest"
   },
   "browserslist": "> 0.25%, not dead",
